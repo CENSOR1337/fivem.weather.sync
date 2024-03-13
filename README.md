@@ -13,7 +13,7 @@ In game time and weather sync, using networked time
 ## Installation
 1. Download the code from this repository
 2. Extract it to your resources folder
-3. ensure resource in your server.cfg (using `censor_time.weather.sync`, as a resource name would mean alot for me)
+3. ensure resource in your server.cfg (using `censor_time.weather.sync`, as a resource name would mean alot to me)
 
 ## Preview
 https://streamable.com/4hic19
