@@ -1,0 +1,2 @@
+-- TODO: Implement a command that allow to set game time and weather
+-- Is it even gonna happen i have no idea lmao
