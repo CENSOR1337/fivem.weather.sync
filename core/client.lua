@@ -19,7 +19,7 @@ assert(GAME_DAY_IN_MS > 0, "Invalid game day length")
 assert(WEATHER_INTERVAL_IN_MS > 0, "Invalid weather interval")
 assert(WEATHER_MAX_INDEX > 0, "No weather available")
 
-local currentWeatherIndex = 1
+local currentWeatherIndex = -1
 
 local function changeWeather(weather)
     if (WEATHER_INTERPOLATION_SPEED <= 0) then
