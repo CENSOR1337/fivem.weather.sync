@@ -22,14 +22,13 @@ assert(WEATHER_MAX_INDEX > 0, "No weather available")
 local currentWeatherIndex = -1
 
 local function changeWeather(weather)
+    ClearOverrideWeather()
     if (WEATHER_INTERPOLATION_SPEED <= 0) then
-        ClearOverrideWeather()
         ClearWeatherTypePersist()
         SetWeatherTypePersist(weather)
         SetWeatherTypeNow(weather)
         SetWeatherTypeNowPersist(weather)
     else
-        ClearOverrideWeather()
         SetWeatherTypeOvertimePersist(weather, WEATHER_INTERPOLATION_SPEED)
     end
 end
