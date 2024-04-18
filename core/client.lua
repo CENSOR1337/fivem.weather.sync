@@ -14,6 +14,7 @@ local GAME_DAY_IN_MS <const> = config.gameDayInSec * 1000
 local WEATHER_INTERVAL_IN_MS <const> = config.weatherIntervalInSec * 1000
 local WEATHER_MAX_INDEX <const> = #config.availableWeathers
 local WEATHER_INTERPOLATION_SPEED <const> = config.weatherInterpolationSpeed + 0.0
+local LOOP_INTERVAL <const> = math.max(math.min(config.gameDayInSec, config.weatherIntervalInSec) * 0.05, 4)
 
 assert(GAME_DAY_IN_MS > 0, "Invalid game day length")
 assert(WEATHER_INTERVAL_IN_MS > 0, "Invalid weather interval")
@@ -67,6 +68,6 @@ CreateThread(function()
 
     while true do
         sync()
-        Wait(4)
+        Wait(LOOP_INTERVAL)
     end
 end)
