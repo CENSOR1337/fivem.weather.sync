@@ -7,7 +7,7 @@ config.gameDayInSec = 2880 -- 48 minutes, same as GTA Online
 config.weatherIntervalInSec = 3600 -- 1 hours
 
 -- how fast weather will change, 0 is instantly
-config.weatherInterpolationSpeed = 128.0
+config.weatherInterpolationSpeedInMs = 128.0
 
 -- weather will change in order of this list
 config.availableWeathers = {
