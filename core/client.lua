@@ -67,3 +67,35 @@ CreateThread(function()
         Wait(LOOP_INTERVAL)
     end
 end)
+
+
+CreateThread(function(threadId)
+    if not (config.debug) then return end
+
+    while true do
+        local hour = GetClockHours()
+        local min = GetClockMinutes()
+        local sec = GetClockSeconds()
+
+        local text = string.format("%02d:%02d:%02d", hour, min, sec)
+        local offset = vec(0.5, 0.025)
+        local scale = 0.6
+        local font = 6
+        local color = { r = 255, g = 255, b = 255, a = 255 }
+        local bCenter = true
+        local align = 0
+        SetTextFont(font)
+        SetTextScale(1, scale)
+        SetTextWrap(0.0, 1.0)
+        SetTextCentre(bCenter)
+        SetTextColour(color.r, color.g, color.b, color.a)
+        SetTextJustification(align)
+        SetTextEdge(1, 0, 0, 0, 255)
+        SetTextOutline()
+        SetTextDropShadow()
+        BeginTextCommandDisplayText("STRING")
+        AddTextComponentSubstringPlayerName(text)
+        EndTextCommandDisplayText(offset.x, offset.y)
+        Wait(0)
+    end
+end)
