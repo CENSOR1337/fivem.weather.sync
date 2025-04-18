@@ -57,33 +57,37 @@ local function numClamp(num, min, max)
 end
 
 local function sync()
-    local netTime = GetNetworkTime()
+    local net_time = GetNetworkTime()
 
-    local dayProgress = netTime % (GAME_DAY_IN_MS)
+    local day_progress = (net_time % GAME_DAY_IN_MS) / GAME_DAY_IN_MS
 
-    local hourAlpha = dayProgress / GAME_DAY_IN_MS
-    local hour = math_floor(hourAlpha * 24)
+    local ms_offset = TIMESYNC_INFO[TIMESYNC_ENUM.TIME_OFFSET_ROUND] or 0
+    ms_offset += TIMESYNC_INFO[TIMESYNC_ENUM.TIME_OFFSET_DAY] or 0
 
-    local minuteAlpha = (hourAlpha * 24) % 1
-    local minute = math_floor(minuteAlpha * 60)
+    local ms_of_day = day_progress * 86400000 + ms_offset
+    local sec_of_day = ms_of_day / 1000
+    local min_of_day = sec_of_day / 60
+    local hour_of_day = min_of_day / 60
 
-    local secondAlpha = (minuteAlpha * 60) % 1
-    local second = math_floor(secondAlpha * 60)
+    local clock_hour = math_floor(hour_of_day) % 24
+    local clock_minute = math_floor(min_of_day) % 60
+    local clock_second = math_floor(sec_of_day) % 60
 
     if (override_sync_time_info.enabled) then
-        hour = override_sync_time_info.hour
-        minute = override_sync_time_info.min
+        clock_hour = override_sync_time_info.hour
+        clock_minute = override_sync_time_info.min
+        clock_second = 0
     end
 
-    NetworkOverrideClockTime(hour, minute, second)
+    NetworkOverrideClockTime(clock_hour, clock_minute, clock_second)
 
-    local weatherProgress = netTime / (WEATHER_INTERVAL_IN_MS)
+    local weatherProgress = net_time / (WEATHER_INTERVAL_IN_MS)
     local weatherIndex = math_floor(weatherProgress) % WEATHER_MAX_INDEX + 1
 
     local currentWeather = config.availableWeathers[weatherIndex]
     local nextWeather = config.availableWeathers[(weatherIndex % WEATHER_MAX_INDEX) + 1]
 
-    local timeSinceLastWeatherChange = netTime % WEATHER_INTERVAL_IN_MS
+    local timeSinceLastWeatherChange = net_time % WEATHER_INTERVAL_IN_MS
     local weatherTimeAlpha = roundDecimal(timeSinceLastWeatherChange / WEATHER_INTERPOLATION_SPEED, 2)
     weatherTimeAlpha = numClamp(weatherTimeAlpha, 0.0, 1.0)
 
