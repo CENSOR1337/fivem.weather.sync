@@ -57,7 +57,7 @@ local function numClamp(num, min, max)
 end
 
 local function sync()
-    local net_time = GetNetworkTime()
+    local net_time = TIMESYNC_INFO[TIMESYNC_ENUM.IS_TIME_FREEZED] and 0 or GetNetworkTime()
 
     local day_progress = (net_time % GAME_DAY_IN_MS) / GAME_DAY_IN_MS
 
