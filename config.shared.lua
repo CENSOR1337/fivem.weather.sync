@@ -1,6 +1,6 @@
 rawset(_ENV, "config", {}) -- stop linter from bitching
 
-config.debug = true
+config.debug = false
 
 -- how long in game day in seconds
 config.gameDayInSec = 2880 -- 48 minutes, same as GTA Online
